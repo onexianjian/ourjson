@@ -15,6 +15,17 @@ func (j *JsonObject) HasKey(key string) bool {
 	return ok
 }
 
+func (j *JsonObject) Keys() []string {
+	i := 0
+	keys := make([]string, len(j.m))
+	for k := range j.m {
+		keys[i] = k
+		i++
+	}
+
+	return keys
+}
+
 func (j *JsonObject) Get(key string) (*Value, error) {
 	if !j.HasKey(key) {
 		return nil, KeyNotFoundError{key}
