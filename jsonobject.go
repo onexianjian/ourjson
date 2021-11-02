@@ -1,4 +1,4 @@
-// 
+//
 
 package ourjson
 
@@ -112,7 +112,7 @@ func (j *JsonObject) GetNullFloat(key string) (*Float, error) {
 func (j *JsonObject) GetBoolean(key string) (bool, error) {
 	val, err := j.Get(key)
 	if err != nil {
-		return false , err
+		return false, err
 	}
 	return val.Boolean()
 }
@@ -138,6 +138,10 @@ func (j *JsonObject) GetNullBoolean(key string) (*Boolean, error) {
 	return val.NullBoolean()
 }
 
-func (j *JsonObject) Put(key string, val interface {}) {
-	j.m[key] = &Value{val}
+func (j *JsonObject) Set(key string, value *Value) {
+	j.m[key] = value
+}
+
+func (j *JsonObject) Put(key string, val interface{}) {
+	j.Set(key, &Value{val})
 }
