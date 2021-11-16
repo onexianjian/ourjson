@@ -13,7 +13,7 @@ const (
 )
 
 type Value struct {
-	data interface {}
+	data interface{}
 }
 
 func (v *Value) MarshalJSON() ([]byte, error) {
@@ -21,11 +21,11 @@ func (v *Value) MarshalJSON() ([]byte, error) {
 }
 
 func (v *Value) JsonObject() *JsonObject {
-	if _, ok := v.data.(map[string]interface {}); !ok {
+	if _, ok := v.data.(map[string]interface{}); !ok {
 		panic(ValueTransformTypeError{JSONOBJECTTYPE})
 	}
 	mapValue := make(map[string]*Value)
-	for key, val := range v.data.(map[string]interface {}) {
+	for key, val := range v.data.(map[string]interface{}) {
 		mapValue[key] = &Value{val}
 	}
 	return &JsonObject{
@@ -35,11 +35,11 @@ func (v *Value) JsonObject() *JsonObject {
 }
 
 func (v *Value) JsonArray() *JsonArray {
-	if _, ok := v.data.([]interface {}); !ok {
+	if _, ok := v.data.([]interface{}); !ok {
 		panic(ValueTransformTypeError{JSONARRAYTYPE})
 	}
 	var slice []*Value
-	for _, val := range v.data.([]interface {}) {
+	for _, val := range v.data.([]interface{}) {
 		slice = append(slice, &Value{val})
 	}
 	return &JsonArray{
@@ -82,6 +82,14 @@ func (v *Value) Int64() (int64, error) {
 		return 0, err
 	}
 	return int64(f), nil
+}
+
+func (v *Value) UInt64() (uint64, error) {
+	f, err := v.Float64()
+	if err != nil {
+		return 0, err
+	}
+	return uint64(f), nil
 }
 
 func (v *Value) NullLong() (*Long, error) {

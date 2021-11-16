@@ -96,6 +96,14 @@ func (j *JsonObject) GetInt64(key string) (int64, error) {
 	return val.Int64()
 }
 
+func (j *JsonObject) GetUInt64(key string) (uint64, error) {
+	val, err := j.Get(key)
+	if err != nil {
+		return 0, err
+	}
+	return val.UInt64()
+}
+
 func (j *JsonObject) GetNullLong(key string) (*Long, error) {
 	val, err := j.Get(key)
 	if err != nil {
